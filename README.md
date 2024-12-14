@@ -53,7 +53,7 @@
 
 1. Clona el repositorio:
    ```bash
-   git clone https://github.com/tu_usuario/dental-flamingos.git
+   git clone https://github.com/leoaguram/dentalflamingossystem.git
 
 2. Importa el proyecto en tu IDE preferido (IntelliJ, Eclipse, etc.).
 3. Configura las propiedades de conexión en application.properties:
