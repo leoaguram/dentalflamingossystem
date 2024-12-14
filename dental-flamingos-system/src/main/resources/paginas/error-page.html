@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head th:replace="~{plantillas/plantilla :: head}">
+  <link th:replace="~{plantillas/plantilla :: boostrap}" rel="stylesheet">
+</head>
+
+<body>
+<header th:replace="~{plantillas/plantilla :: header}"></header>
+
+<main class="container text-center shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="display-1 text-danger" th:text="${statusCode}"></h1>
+      <h2 class="text-dark" th:text="${errorMessage}"></h2>
+      <!-- Imagen SVG de muleta rota -->
+      <div class="my-4">
+        <img src="/dentalflamingos/img/muela-rota.svg" alt="Muelita rota" style="width: 200px; height: auto;">
+      </div>
+      <p class="lead text-muted">El recurso solicitado no está disponible u ocurrió un problema interno en el servidor.</p>
+
+      <div class="my-4">
+        <a th:href="@{/}" class="btn btn-primary btn-lg">Regresar al Inicio</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer th:replace="~{plantillas/plantilla :: footer}"></footer>
+<script th:replace="~{plantillas/plantilla :: jsbundle}"></script>
+</body>
+</html>

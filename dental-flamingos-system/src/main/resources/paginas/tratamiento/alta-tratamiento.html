@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{plantillas/plantilla :: head}"></head>
+<body>
+<header th:replace="~{plantillas/plantilla :: header}"></header>
+
+<main class="container text-center py-5">
+  <h1 class="card-header"><strong><p th:text="${contenido}"></p></strong></h1>
+  <div class="card-body">
+    <form method="POST" th:action="@{/tratamientos/guardar}" th:object="${tratamiento}">
+      <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('*')}">
+        Verifique los siguientes errores
+        <ul>
+          <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+        </ul>
+      </div>
+
+      <!-- Centrado del formulario con botón debajo del campo -->
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="descripcion" class="form-label">Nombre:</label>
+            <input type="text" class="form-control" id="descripcion" name="descripcion"
+                   placeholder="Nombre del Tratamiento"
+                   th:field="*{descripcion}">
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center mt-3">
+        <div class="col-md-4">
+          <button type="submit" class="btn btn-primary w-100">Guardar</button>
+        </div>
+      </div>
+
+      <input name="idTratamiento" th:value="${tratamiento.idTratamiento}" type="hidden">
+      </input></form>
+  </div>
+</main>
+<footer th:replace="~{plantillas/plantilla :: footer}"></footer>
+<script th:replace="~{plantillas/plantilla :: jsbundle}"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var dropdowns = document.querySelectorAll('.dropdown-submenu .dropdown-toggle');
+    dropdowns.forEach(function(dd) {
+      dd.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.nextElementSibling.classList.toggle('show');
+      });
+    });
+  });
+</script>
+</body>
+</html>

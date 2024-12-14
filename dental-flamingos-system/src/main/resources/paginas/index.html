@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="es">
+<head th:replace="~{plantillas/plantilla :: head}"></head>
+<body>
+<header th:replace="~{plantillas/plantilla :: header}"></header>
+<script>
+    function actualizarReloj() {
+        const ahora = new Date();
+        const horas = String(ahora.getHours()).padStart(2, '0');
+        const minutos = String(ahora.getMinutes()).padStart(2, '0');
+        const segundos = String(ahora.getSeconds()).padStart(2, '0');
+        document.getElementById("reloj").innerText = `${horas}:${minutos}:${segundos}`;
+    }
+    setInterval(actualizarReloj, 1000);
+</script>
+<main class="container text-center py-5 shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+
+    <div class="container mt-5">
+        <div class="text-center mb-4">
+            <h1>Bienvenido a Dental Flamingos</h1>
+            <p class="lead">Resumen de la Clínica</p>
+            <p class="lead text-muted" th:text="${dentista}"></p>
+        </div>
+
+        <div class="row">
+            <!-- Resumen de Citas -->
+            <div class="col-md-4">
+                <div class="card text-center shadow-sm mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Citas de Hoy</h5>
+                        <p class="card-text" th:text="${totalcitas} + ' citas programadas'"></p>
+                        <a href="/dentalflamingos/citas/lista-cita" class="btn btn-primary">Ver Citas</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fecha Actual y Reloj en Tiempo Real -->
+            <div class="col-md-4">
+                <div class="card text-center shadow-sm mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Fecha y Hora Actual</h5>
+                        <p class="card-text">
+                            <span id="fecha-actual"></span><br>
+                            <span id="reloj"></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total de Pacientes -->
+            <div class="col-md-4">
+                <div class="card text-center shadow-sm mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Total de Pacientes</h5>
+                        <p class="card-text" th:text="${totalpacientes} + ' pacientes registrados'"></p>
+                        <a href="/dentalflamingos/pacientes/lista-paciente" class="btn btn-primary">Ver Pacientes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Itinerario del Día -->
+        <div class="card mt-4 shadow-sm">
+            <div class="card-header text-center">
+                <h5>Itinerario del Día</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover text-center">
+                        <thead>
+                        <tr>
+                            <th scope="col">Hora</th>
+                            <th scope="col">Paciente</th>
+                            <th scope="col">Dentista</th>
+                            <th scope="col">Tratamiento</th>
+                            <th scope="col">Acción</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="cita : ${citas}">
+                            <td th:text="${#temporals.format(cita.fechaHoraCita, 'yyyy-MM-dd HH:mm')}"></td>
+                            <td th:text="${cita.paciente.nombre}"></td>
+                            <td th:text="${cita.paciente.dentista.nombre}"></td>
+                            <td th:text="${cita.tratamiento.descripcion}"></td>
+                            <td>
+                                <a th:href="@{/pagos/{idCita}/nuevo (idCita=${cita.idCita})}"
+                                   class="btn btn-primary btn-sm">
+                                    Registrar Pago
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Configurar la fecha actual
+        const fechaActual = new Date();
+        const opcionesFecha = { year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById("fecha-actual").innerText = fechaActual.toLocaleDateString('es-ES', opcionesFecha);
+    </script>
+
+</main>
+<footer th:replace="~{plantillas/plantilla :: footer}"></footer>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var dropdowns = document.querySelectorAll('.dropdown-submenu .dropdown-toggle');
+        dropdowns.forEach(function(dd) {
+            dd.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                this.nextElementSibling.classList.toggle('show');
+            });
+        });
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> <!-- Optional JS to enhance dropdowns -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var dropdowns = document.querySelectorAll('.dropdown-submenu .dropdown-toggle');
+        dropdowns.forEach(function(dd) {
+            dd.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                this.nextElementSibling.classList.toggle('show');
+            });
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<th:block th:fragment="resultadosTabla">
+  <tbody>
+  <tr th:each="ct : ${cita}">
+    <td th:text="${ct.fechaHoraCita}"></td>
+    <td th:text="${ct.paciente.nombre}"></td>
+    <td th:text="${ct.tratamiento.descripcion}"></td>
+    <td th:text="${ct.status.descripcion}"></td>
+    <td th:text="${ct.observaciones}"></td>
+    <td>
+      <a th:href="@{/citas/{id}/editar (id=${ct.idCita})}" class="btn btn-success">Modificar</a>
+      <button type="button" class="btn btn-danger btn-delete" th:attr="data-id=${ct.idCita}" data-bs-toggle="modal" data-bs-target="#deleteModal">Eliminar</button>
+    </td>
+  </tr>
+  <tr th:if="${#lists.isEmpty(cita)}">
+    <td colspan="7" class="text-center">No se encontraron citas.</td>
+  </tr>
+  </tbody>
+</th:block>

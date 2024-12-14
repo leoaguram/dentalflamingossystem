@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="es">
+<head th:replace="~{plantillas/plantilla :: head}">
+  <link th:replace="~{plantillas/plantilla :: boostrap}" rel="stylesheet">
+</head>
+
+<body>
+<header th:replace="~{plantillas/plantilla :: header}"></header>
+
+<main class="container text-center shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+  <h1>Registrar Pago</h1>
+
+  <form th:action="@{/pagos/guardar}" method="post" class="text-start">
+    <!-- Campo oculto para idCita -->
+    <input type="hidden" id="idCita" name="idCita" th:value="${idCita}">
+
+    <!-- Campo Monto Total (Condicional) -->
+    <div class="mb-3" th:if="${condicion}">
+      <label for="montoTotal" class="form-label">Monto Total</label>
+      <input type="number" id="montoTotal" name="montoTotal" class="form-control" placeholder="Ingrese el monto total" required>
+    </div>
+
+    <!-- Campo Monto Pagado -->
+    <div class="mb-3">
+      <label for="montoPago" class="form-label">Monto Pagado</label>
+      <input type="number" id="montoPago" name="montoPago" class="form-control" placeholder="Ingrese el monto pagado" required>
+    </div>
+
+    <!-- Campo Método de Pago -->
+    <div class="mb-3">
+      <label for="metodoPago" class="form-label">Método de Pago</label>
+      <select id="metodoPago" name="metodoPago" class="form-select" required>
+        <option value="" disabled selected>Selecciona un método</option>
+        <option value="Efectivo">Efectivo</option>
+        <option value="Tarjeta">Tarjeta</option>
+        <option value="Transferencia">Transferencia</option>
+      </select>
+    </div>
+
+    <!-- Campo Comentarios -->
+    <div class="mb-3">
+      <label for="comentarios" class="form-label">Comentarios</label>
+      <textarea id="comentarios" name="comentarios" class="form-control" rows="3" placeholder="Ingrese comentarios sobre el pago"></textarea>
+    </div>
+
+    <!-- Botón de Registrar -->
+    <div class="d-flex justify-content-center">
+      <button type="submit" class="btn btn-primary">Registrar Pago</button>
+    </div>
+  </form>
+</main>
+
+<footer th:replace="~{plantillas/plantilla :: footer}"></footer>
+<script th:replace="~{plantillas/plantilla :: jsbundle}"></script>
+</body>
+</html>

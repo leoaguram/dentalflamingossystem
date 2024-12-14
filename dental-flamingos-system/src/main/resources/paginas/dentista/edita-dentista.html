@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="es">
+<head th:replace="~{plantillas/plantilla :: head}"></head>
+<body>
+<header th:replace="~{plantillas/plantilla :: header}"></header>
+
+<main class="container text-center py-5">
+  <h1 class="card-header"><strong><p th:text="${contenido}"></p></strong></h1>
+  <div class="card-body">
+    <form method="POST" th:action="@{/dentistas/guardar}" th:object="${dentista}">
+      <div class='alert alert-danger' role="alert" th:if="${#fields.hasErrors('*')}">
+        Verifique los siguientes errores
+        <ul>
+          <li th:each="err : ${#fields.errors('*')}" th:text="${err}"/>
+        </ul>
+      </div>
+
+      <!-- Nueva fila centrada -->
+      <div class="row justify-content-center gx-5 gy-3">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="idDentista">ID Dentista:</label>
+            <input type="text" class="form-control text-center" id="idDentista" name="idDentista"
+                   placeholder="ID Dentista" th:field="*{idDentista}" readonly>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" class="form-control text-center" id="nombre" name="nombre"
+                   placeholder="Nombre del Status" th:field="*{nombre}">
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="numeroCelular">Número Celular:</label>
+            <input type="text" class="form-control text-center" id="numeroCelular" name="numeroCelular"
+                   placeholder="Número celular" th:field="*{numeroCelular}">
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="usuario">Usuario:</label>
+            <input type="text" class="form-control text-center" id="usuario" name="usuario"
+                   placeholder="Usuario" th:field="*{usuario}">
+          </div>
+        </div>
+
+        <!--<div class="col-md-4">
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control text-center" id="password" name="password"
+                   placeholder="Ingrese contraseña para confirmar cambios" th:field="*{password}">
+          </div>
+        </div>-->
+      </div>
+
+      <!-- Botón centrado -->
+      <div class="row justify-content-center mt-4">
+        <div class="col-auto">
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+      </div>
+      <input name="password" th:value="${dentista.password}" type="hidden">
+    </form>
+  </div>
+</main>
+
+<footer th:replace="~{plantillas/plantilla :: footer}"></footer>
+<script th:replace="~{plantillas/plantilla :: jsbundle}"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      var dropdowns = document.querySelectorAll('.dropdown-submenu .dropdown-toggle');
+      dropdowns.forEach(function(dd) {
+          dd.addEventListener('click', function(e) {
+              e.preventDefault();
+              e.stopPropagation();
+              this.nextElementSibling.classList.toggle('show');
+          });
+      });
+  });
+</script>
+</body>
+</html>

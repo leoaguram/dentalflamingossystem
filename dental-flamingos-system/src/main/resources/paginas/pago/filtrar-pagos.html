@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head th:replace="~{plantillas/plantilla :: head}">
+  <link th:replace="~{plantillas/plantilla :: boostrap}" rel="stylesheet">
+</head>
+
+<body>
+<header th:replace="~{plantillas/plantilla :: header}"></header>
+
+<main class="container text-center shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+  <h1 th:text="${contenido}">Filtrar Pagos</h1>
+
+  <!-- Formulario -->
+  <form th:action="@{/pagos/pago-resumen}" method="get" id="filterForm" class="my-4">
+    <!-- Selector de Pacientes -->
+    <div class="mb-3">
+      <label for="idPaciente" class="form-label">Selecciona un Paciente:</label>
+      <select id="idPaciente" name="idPaciente" class="form-select" required>
+        <option value="" disabled selected>Selecciona un paciente</option>
+        <option th:each="paciente : ${pacientes}"
+                th:value="${paciente.idPaciente}"
+                th:text="${paciente.nombre}">
+        </option>
+      </select>
+    </div>
+
+    <!-- Selector de Citas (Dinámico) -->
+    <div class="mb-3" id="citaContainer" style="display: none;">
+      <!-- Aquí se cargarán las citas dinámicamente -->
+    </div>
+
+    <button type="submit" class="btn btn-primary">Filtrar</button>
+  </form>
+</main>
+
+<footer th:replace="~{plantillas/plantilla :: footer}"></footer>
+<script th:replace="~{plantillas/plantilla :: jsbundle}"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const pacienteSelect = document.getElementById("idPaciente");
+    const citaContainer = document.getElementById("citaContainer");
+
+    pacienteSelect.addEventListener("change", function () {
+      const pacienteId = this.value;
+      console.log("Paciente seleccionado:", pacienteId); // Log del paciente seleccionado
+
+      if (pacienteId) {
+        fetch(`/dentalflamingos/pagos/citas?idPaciente=${pacienteId}`, {
+          headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        })
+                .then(response => {
+                  console.log("Respuesta del servidor:", response); // Log de la respuesta
+                  return response.text();
+                })
+                .then(html => {
+                  console.log("HTML recibido:", html); // Log del HTML devuelto
+                  citaContainer.innerHTML = html;
+                  citaContainer.style.display = "block";
+                })
+                .catch(error => {
+                  console.error("Error al cargar las citas:", error);
+                  citaContainer.style.display = "none";
+                });
+      } else {
+        citaContainer.style.display = "none";
+      }
+    });
+  });
+
+</script>
+</body>
+</html>

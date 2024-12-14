@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="es">
+<head th:replace="~{plantillas/plantilla :: head}"></head>
+<style>
+  .bg-light-red {
+    background-color: #f8d7da !important; /* Rojo claro */
+  }
+  .bg-light-green {
+    background-color: #d4edda !important; /* Verde claro */
+  }
+  .text-dark {
+    color: #343a40 !important; /* Texto oscuro */
+  }
+  .hover-effect:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.2s ease-in-out;
+    z-index: 1;
+    position: relative; /* Necesario para que el efecto se muestre bien */
+  }
+
+</style>
+
+<body>
+<header th:replace="~{plantillas/plantilla :: header}"></header>
+<main class="container text-center py-5">
+  <h1 class="card-header"><strong><p th:text="${contenido}"></p></strong></h1>
+
+  <form th:action="@{/citas/guardar}" th:object="${cita}" method="POST">
+    <div th:if="${#fields.hasErrors('*')}" class='alert alert-danger' role="alert">
+      Verifique los siguientes errores
+      <ul>
+        <li th:each="err : ${#fields.errors('*')}" th:text="${err}"/>
+      </ul>
+    </div>
+    <div class="row">
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="paciente">Paciente</label>
+          <select class="form-control" th:field="*{paciente}" id="paciente" name="paciente" required>
+            <option th:each="sel : ${selectPaciente}" th:value="${sel.idPaciente}" th:text="${sel.nombre}"/>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="tratamiento">Tratamiento</label>
+          <select class="form-control" th:field="*{tratamiento}" id="tratamiento" name="tratamiento" required>
+            <option th:each="sel : ${selectTratamiento}" th:value="${sel.idTratamiento}" th:text="${sel.descripcion}"/>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="status">Estatus de la cita</label>
+          <select class="form-control" th:field="${cita.status.idStatus}" id="status" name="status" required>
+            <option th:each="sel : ${selectStatus}" th:value="${sel.idStatus}" th:text="${sel.descripcion}"/>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-mf-5">
+        <div class="form-group">
+          <label for="fechaHoraCita">Fecha y hora de la cita</label>
+          <input type="datetime-local" class="form-control" id="fechaHoraCita"
+                 name="fechaHoraCita"
+                 placeholder="Fecha y hora de la cita" required
+                 th:value="${cita.fechaHoraCita}">
+        </div>
+      </div>
+
+      <div class="col-md-5">
+        <div class="form-group">
+          <label for="observaciones">Observaciones:</label>
+          <input type="text" class="form-control" id="observaciones" name="observaciones"
+                 placeholder="Observaciones" th:field="${cita.observaciones}">
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <br/>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+    </div>
+    <input type="hidden" name="idCita" th:value="${cita.idCita}"/>
+  </form>
+
+  <div class="mt-4">
+
+  </div>
+
+  </div>
+
+
+</main>
+<footer th:replace="~{plantillas/plantilla :: footer}"></footer>
+<script th:replace="~{plantillas/plantilla :: jsbundle}"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      var dropdowns = document.querySelectorAll('.dropdown-submenu .dropdown-toggle');
+      dropdowns.forEach(function(dd) {
+          dd.addEventListener('click', function(e) {
+              e.preventDefault();
+              e.stopPropagation();
+              this.nextElementSibling.classList.toggle('show');
+          });
+      });
+  });
+</script>
+
+
+
+</body>
+</html>

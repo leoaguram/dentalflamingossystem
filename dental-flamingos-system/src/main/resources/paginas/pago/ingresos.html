@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head th:replace="~{plantillas/plantilla :: head}">
+  <link th:replace="~{plantillas/plantilla :: boostrap}" rel="stylesheet">
+</head>
+
+<body>
+<header th:replace="~{plantillas/plantilla :: header}"></header>
+
+<main class="container text-center shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+  <h1>Generar Reporte de Ingresos</h1>
+
+  <form th:action="@{/pdf/reporte-ingresos}" method="post" class="text-start">
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="fechaInicio" class="form-label">Fecha Inicial</label>
+        <input type="date" id="fechaInicio" name="fechaInicio" class="form-control" required>
+      </div>
+      <div class="col-md-6">
+        <label for="fechaFin" class="form-label">Fecha Final</label>
+        <input type="date" id="fechaFin" name="fechaFin" class="form-control" required>
+      </div>
+    </div>
+
+    <div class="d-grid">
+      <button type="submit" class="btn btn-primary">Generar Reporte</button>
+    </div>
+  </form>
+</main>
+
+<footer th:replace="~{plantillas/plantilla :: footer}"></footer>
+<script th:replace="~{plantillas/plantilla :: jsbundle}"></script>
+</body>
+</html>

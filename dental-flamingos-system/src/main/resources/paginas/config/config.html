@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head th:replace="~{plantillas/plantilla :: head}">
+  <link th:replace="~{plantillas/plantilla :: boostrap}" rel="stylesheet">
+</head>
+
+<body>
+<header th:replace="~{plantillas/plantilla :: header}"></header>
+
+<main class="container text-center shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+  <h1>Configuraciones</h1>
+  <p class="text-muted">Selecciona una opción para gestionar los catálogos o tu perfil.</p>
+
+  <div class="row row-cols-1 row-cols-md-2 g-4 mt-4">
+    <!-- Catálogo de Status -->
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-body">
+          <h5 class="card-title">Status</h5>
+          <p class="card-text">Gestiona los estados disponibles en el sistema.</p>
+          <div class="d-flex justify-content-center gap-2">
+            <a th:href="@{/status/lista-status}" class="btn btn-primary">Consulta</a>
+            <a th:href="@{/status/alta}" class="btn btn-primary">Registrar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Catálogo de Tratamientos -->
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-body">
+          <h5 class="card-title">Tratamientos</h5>
+          <p class="card-text">Administra los tratamientos disponibles.</p>
+          <div class="d-flex justify-content-center gap-2">
+            <a th:href="@{/tratamientos/lista-tratamiento}" class="btn btn-primary">Consulta</a>
+            <a th:href="@{/tratamientos/alta}" class="btn btn-primary">Registro</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Configuración de Perfil -->
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-body">
+          <h5 class="card-title">Perfil</h5>
+          <p class="card-text">Configura tu perfil de usuario.</p>
+          <div class="d-flex justify-content-center gap-2">
+            <a th:href="@{/dentistas/editar}" class="btn btn-primary">Actualizar Perfil</a>
+            <a th:href="@{/configuracion/perfil/cambiar-contrasena}" class="btn btn-primary">Cambiar Contraseña</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Configuración de Perfil -->
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-body">
+          <h5 class="card-title">Reporte de ingresos</h5>
+          <p class="card-text">Descarga un reporte de tus ingresos en un cierto rango de fechas.</p>
+          <div class="d-flex justify-content-center gap-2">
+            <a th:href="@{/pagos/reporte}" class="btn btn-primary">Ingresos</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer th:replace="~{plantillas/plantilla :: footer}"></footer>
+<script th:replace="~{plantillas/plantilla :: jsbundle}"></script>
+</body>
+</html>

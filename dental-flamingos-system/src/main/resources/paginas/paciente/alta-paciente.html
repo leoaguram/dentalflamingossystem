@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="es">
+<head th:replace="~{plantillas/plantilla :: head}"></head>
+<body>
+<header th:replace="~{plantillas/plantilla :: header}"></header>
+
+<main class="container text-center py-5">
+  <h1 class="card-header"><strong><p th:text="${contenido}"></p></strong></h1>
+  <div class="card-body">
+    <form th:action="@{/pacientes/guardar}" th:object="${paciente}" method="POST">
+      <div th:if="${#fields.hasErrors('*')}" class='alert alert-danger' role="alert">
+        Verifique los siguientes errores
+        <ul>
+          <li th:each="err : ${#fields.errors('*')}" th:text="${err}"/>
+        </ul>
+      </div>
+      <div class="row gx-5">
+        <div class="col-md-5">
+          <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" class="form-control" id="nombre" name="nombre"
+                   placeholder="Nombre del Paciente"
+                   th:field="*{nombre}">
+          </div>
+        </div>
+        <div class="col-mf-5">
+          <div class="form-group">
+            <label for="fechaNac">Fecha de nacimiento</label>
+            <input type="date" class="form-control" id="fechaNac"
+                   name="fechaNac"
+                   placeholder="Fecha de Nacimiento"
+                   th:value="${paciente.fechaNac}">
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="form-group">
+            <label for="numeroCelular">Número Celular:</label>
+            <input type="text" class="form-control" id="numeroCelular" name="numeroCelular"
+                   placeholder="Número celular"
+                   th:field="*{numeroCelular}">
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="text" class="form-control" id="email" name="email"
+                   placeholder="Email"
+                   th:field="${paciente.email}">
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="form-group">
+            <label for="direccion">Dirección:</label>
+            <input type="text" class="form-control" id="direccion" name="direccion"
+                   placeholder="Dirección"
+                   th:field="${paciente.direccion}">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <br/>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+      </div>
+      <input type="hidden" name="idPaciente" th:value="${paciente.idPaciente}"/>
+    </form>
+  </div>
+
+</main>
+<footer th:replace="~{plantillas/plantilla :: footer}"></footer>
+
+<script th:replace="~{plantillas/plantilla :: jsbundle}"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      var dropdowns = document.querySelectorAll('.dropdown-submenu .dropdown-toggle');
+      dropdowns.forEach(function(dd) {
+          dd.addEventListener('click', function(e) {
+              e.preventDefault();
+              e.stopPropagation();
+              this.nextElementSibling.classList.toggle('show');
+          });
+      });
+  });
+</script>
+</body>
+</html>

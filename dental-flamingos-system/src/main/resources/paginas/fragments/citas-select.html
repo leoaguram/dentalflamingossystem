@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="citasOptions">
+    <select id="idCita" name="idCita" class="form-select" required>
+        <option value="" disabled selected>Selecciona una cita</option>
+        <option th:each="cita : ${citas}"
+                th:value="${cita.idCita}"
+                th:text="${cita.fechaHoraCita} + ' - ' + ${cita.tratamiento.descripcion}">
+        </option>
+    </select>
+</div>
+</body>
+</html>
