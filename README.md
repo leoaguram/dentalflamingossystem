@@ -58,10 +58,10 @@
 2. Importa el proyecto en tu IDE preferido (IntelliJ, Eclipse, etc.).
 3. Configura las propiedades de conexión en application.properties:
    ```bash
-   spring.datasource.url=jdbc:mysql://localhost:3306/dental_flamingos
+   spring.datasource.url=jdbc:mysql://localhost:3306/dentalflamingos_bkp
    spring.datasource.username=tu_usuario
    spring.datasource.password=tu_contraseña
-   spring.jpa.hibernate.ddl-auto=update
+
 4. Crea la base de datos y ejecuta los scripts de inicialización (DDL y datos de prueba).
 5. Construye y ejecuta la aplicación
 6. Accede al sistema:
