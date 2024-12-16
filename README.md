@@ -77,7 +77,7 @@ Este documento explica el flujo básico para utilizar el sistema **Dental Flamin
 
 ## **1. Inicio de Sesión**
 
-1. Accede a la URL principal: [http://localhost:8080](http://localhost:8080).
+1. Accede a la URL principal: [http://localhost:8080/dentalflamingos/](http://localhost:8080/dentalflamingos/).
 2. Ingresa tus credenciales de dentista:
      - **Dentista 1:**
     - Usuario: noemident10
